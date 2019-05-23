@@ -32,7 +32,7 @@ class Student(models.Model):
     second_name = models.CharField(max_length=1000, verbose_name="Имя")
     third_name = models.CharField(max_length=1000, null=True, blank=True, verbose_name="Отчество")
     group = models.CharField(max_length=1000, verbose_name="Группа")
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Комната")
+    room = models.ForeignKey(Room, on_delete=models.SET_DEFAULT, null=True, blank=True, verbose_name="Комната", default='')
 
     def __str__(self):
         if self.third_name == '':

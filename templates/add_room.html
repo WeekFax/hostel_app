@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_navbar_nav %}
+  <li><a href="/">Главная</a></li>
+  <li class="active"><a href="/rooms">Комнаты</a></li>
+  <li><a href="/students">Студенты</a></li>            
+  <li><a href="/hostels">Общежития</a></li>
+
+{% endblock %}
+
+
+{% block stuff %}
+<form method="post" action="/products/create">{% csrf_token %}
+   {{ form.as_p }}
+    <input type="hidden" id="_method" name="_method" value="post">
+      <div class="form-group">
+        <label for="inputProductName">Name</label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="productNameHelp" placeholder="Enter Product Name">
+      </div>
+      <div class="form-group">
+          <label for="inputProductDescr">Description</label>
+          <textarea type="text" class="form-control" id="description" name="description" aria-placeholder="Description" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="selectProductCategory">Select category</label>
+        <select class="form-control" id="category" name="category">
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="inputProductPrice">Price, ₽</label>
+        <input type="number" class="form-control" id="price" name="price" placeholder="Price in ₽">
+      </div>
+      <div class="form-group">
+        <label for="inputFile">Select pictures</label>
+        <input type="text" class="form-control-file" id="image" name="image" aria-describedby="fileHelp" value="{{ product.image }}">
+        <small id="fileHelp" class="form-text text-muted">Enter image url.</small>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock %}
